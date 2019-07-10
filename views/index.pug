@@ -1,0 +1,33 @@
+extends layout.pug
+
+block content
+    h1 Search Books
+    form(method="get" action="/books")
+        p
+            label(for="q") Query
+            input(name="q", type="text", id="query")
+        p
+            input(type="submit", value="Search!")
+    br
+    h1 Books
+    p
+        a.button(href="/books/new") Create New Book
+
+    table
+        thead
+            tr
+                th Title
+                th Author
+                th Genre
+                th Year
+        each book in books
+            tbody
+                tr
+                    td
+                        a(href="/books/" + book.id) #{book.title}
+                    td= book.author
+                    td= book.genre
+                    td= book.year
+    ul
+        each number in pageRange
+            a.button.navigationButton(href=currentPageUrl + "&p=" + number id=number)= number + 1
