@@ -1,5 +1,6 @@
 // Third party imports
 const express = require("express");
+const db = require('./utils/database');
 
 // Express instance
 const app = express();
@@ -38,4 +39,8 @@ app.use((error, req, res, next) => {
     }
 });
 
-app.listen(3000);
+db.sync().then(() => {
+    app.listen(3000, () => {
+        console.log("The application is listening on localhost:3000!")
+    });
+});
